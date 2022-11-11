@@ -1,4 +1,4 @@
-import {getRandomInt, getRandomArrayElem} from './util.js';
+import {getRandomInteger, getRandomArrayElement} from './util.js';
 
 let id = 0;
 
@@ -220,9 +220,9 @@ const description = [
 const createPhoto = () => ({
   id: getId(),
   url: getUrl(),
-  description: getRandomArrayElem(description),
-  likes: getRandomInt(MIN_LIKES, MAX_LIKES),
-  comments: getRandomInt(MIN_COMMENTS, MAX_COMMENTS),
+  description: getRandomArrayElement(description),
+  likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
+  comments: getRandomInteger(MIN_COMMENTS, MAX_COMMENTS),
 });
 
 const createPhotoGallery = () => Array.from({length: MAX_ID}, createPhoto);
