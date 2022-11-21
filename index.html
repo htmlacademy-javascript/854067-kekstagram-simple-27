@@ -106,8 +106,13 @@
 
                 <!-- Добавление комментария к изображению -->
                 <fieldset class="img-upload__text text">
-                    <textarea class="text__description" name="description" placeholder="Ваш комментарий..." minlength="20" maxlength="140" required></textarea>
-                </fieldset>
+                  <div class="img-upload-item">
+                    <textarea class="text__description" name="description" placeholder="Ваш комментарий..." minlength="20" maxlength="140" required 
+                    data-pristine-required-message="Обязательное поле"
+                    data-pristine-minlength-message="Минимальная длина 20 символов"
+                    data-pristine-maxlength-message="Максимальная длина 140 символов"></textarea>                    
+                  </div>
+                  </fieldset>
 
                 <!-- Кнопка для отправки данных на сервер -->
                 <button type="submit" class="img-upload__submit" id="upload-submit">Опубликовать</button>
@@ -166,6 +171,7 @@
     </section>
   </template>
 
+  <script src="./vendor/pristine/pristine.min.js"></script>
   <script src="./vendor/nouislider/nouislider.js"></script>
   <script src="./js/main.js" type="module"></script>
 
