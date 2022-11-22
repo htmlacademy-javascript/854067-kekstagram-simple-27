@@ -2,7 +2,6 @@ import {isEscapeKey} from './util.js';
 import {resetScale} from './scale.js';
 import {resetEffects} from './effect.js';
 import {sendData} from './api.js';
-// import {getSuccessNotification, getErrorNotification} from './result-submit.js';
 
 const form = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
@@ -49,7 +48,10 @@ const onNotificationEscKeydown = (evt, notification) => {
 
     notification.remove();
     document.removeEventListener('keydown', onNotificationEscKeydown);
-    document.addEventListener('keydown', onModalEscKeydown);
+
+    if (!imgUploadOverlay.classList.contains('hidden')) {
+      document.addEventListener('keydown', onModalEscKeydown);
+    }
   }
 };
 
