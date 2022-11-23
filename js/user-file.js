@@ -1,4 +1,3 @@
-/* eslint-disable no-return-assign */
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const fileChooser = document.querySelector('.img-upload__wrapper input[type=file]');
@@ -14,6 +13,8 @@ fileChooser.addEventListener('change', () => {
   if (matches) {
     image.src = URL.createObjectURL(file);
 
-    previews.forEach((preview) => preview.style.backgroundImage = `url(${image.src})`);
+    previews.forEach((preview) => {
+      preview.style.backgroundImage = `url(${image.src})`;
+    });
   }
 });

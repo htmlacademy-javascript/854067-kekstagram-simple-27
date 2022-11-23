@@ -9,7 +9,7 @@ const scaleValue = document.querySelector('.scale__control--value');
 const image = document.querySelector('.img-upload__preview');
 
 const scaleImage = (value = DEFAULT_SCALE) => {
-  image.style.transform = `scale(${value / 100})`;
+  image.style.transform = `scale(${value / DEFAULT_SCALE})`;
   scaleValue.value = `${value}%`;
 };
 

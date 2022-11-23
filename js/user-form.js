@@ -5,7 +5,7 @@ import {sendData} from './api.js';
 
 const form = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
-const uploadFileElement = document.querySelector('#upload-file');
+const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadCancel = imgUploadOverlay.querySelector('#upload-cancel');
 const comment = imgUploadOverlay.querySelector('.text__description');
@@ -87,10 +87,10 @@ function hideModal () {
   document.removeEventListener('keydown', onModalEscKeydown);
 
   comment.value = '';
-  uploadFileElement.value = '';
+  uploadFile.value = '';
 }
 
-uploadFileElement.addEventListener('change', () => showModal());
+uploadFile.addEventListener('change', () => showModal());
 
 const getSuccessNotification = () => {
   const successModal = successTemplate.cloneNode(true);
