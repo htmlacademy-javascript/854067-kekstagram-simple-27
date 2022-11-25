@@ -50,15 +50,16 @@ const EFFECTS = [
 const DEFAULT_EFFECT = EFFECTS[0];
 let currentEffect = DEFAULT_EFFECT;
 
-const form = document.querySelector('.img-upload__form');
-const image = form.querySelector('.img-upload__preview img');
-const sliderElement = form.querySelector('.effect-level__slider');
-const levelEffect = form.querySelector('.effect-level__value');
+const formElement = document.querySelector('.img-upload__form');
+const imageElement = formElement.querySelector('.img-upload__preview img');
+const sliderElement = formElement.querySelector('.effect-level__slider');
+const levelEffectElement = formElement.querySelector('.effect-level__value');
+const sliderUploadElement = formElement.querySelector('.img-upload__effect-level');
 
 const isDefault = () => currentEffect === DEFAULT_EFFECT;
 
 const updateSlider = () => {
-  sliderElement.classList.remove('hidden');
+  sliderUploadElement.classList.remove('hidden');
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: currentEffect.min,
@@ -69,21 +70,21 @@ const updateSlider = () => {
   });
 
   if (isDefault()) {
-    sliderElement.classList.add('hidden');
+    sliderUploadElement.classList.add('hidden');
   }
 };
 
 const onSliderUpdate = () => {
-  image.style.filter = 'none';
-  levelEffect.value = '';
-  image.className = '';
+  imageElement.style.filter = 'none';
+  levelEffectElement.value = '';
+  imageElement.className = '';
   if (isDefault()) {
     return;
   }
   const sliderValue = sliderElement.noUiSlider.get();
-  image.style.filter = `${currentEffect.style}(${sliderValue}${currentEffect.unit})`;
-  image.classList.add(`effects__preview--${currentEffect.name}`);
-  levelEffect.value = sliderValue;
+  imageElement.style.filter = `${currentEffect.style}(${sliderValue}${currentEffect.unit})`;
+  imageElement.classList.add(`effects__preview--${currentEffect.name}`);
+  levelEffectElement.value = sliderValue;
 };
 
 const onFormChange = (evt) => {
@@ -109,7 +110,7 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
 });
 
-form.addEventListener('change', (evt) => onFormChange(evt));
+formElement.addEventListener('change', (evt) => onFormChange(evt));
 sliderElement.noUiSlider.on('update', (evt) => onSliderUpdate(evt));
 
 export {resetEffects};
