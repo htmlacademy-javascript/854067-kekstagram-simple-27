@@ -1,4 +1,4 @@
-const pictures = document.querySelector('.pictures');
+const picturesElement = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
@@ -16,7 +16,7 @@ const renderPictures = (photos) => {
     picturesFragment.append(newPicture);
   });
 
-  pictures.append(picturesFragment);
+  picturesElement.append(picturesFragment);
 };
 
 export {renderPictures};

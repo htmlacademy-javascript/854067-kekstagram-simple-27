@@ -3,13 +3,13 @@ import {resetScale} from './scale.js';
 import {resetEffects} from './effect.js';
 import {sendData} from './api.js';
 
-const form = document.querySelector('.img-upload__form');
-const body = document.querySelector('body');
-const uploadFile = document.querySelector('#upload-file');
-const imgUploadOverlay = document.querySelector('.img-upload__overlay');
-const uploadCancel = imgUploadOverlay.querySelector('#upload-cancel');
-const comment = imgUploadOverlay.querySelector('.text__description');
-const submitButton = form.querySelector('.img-upload__submit');
+const formElement = document.querySelector('.img-upload__form');
+const bodyElement = document.querySelector('body');
+const fileUploadElement = document.querySelector('#upload-file');
+const imgUploadOverlayElement = document.querySelector('.img-upload__overlay');
+const cancelUploadElement = imgUploadOverlayElement.querySelector('#upload-cancel');
+const comment = imgUploadOverlayElement.querySelector('.text__description');
+const submitButtonElement = formElement.querySelector('.img-upload__submit');
 
 const successTemplate = document.querySelector('#success')
   .content
@@ -19,20 +19,20 @@ const errorTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
 
-const pristine = new Pristine(form, {
+const pristine = new Pristine(formElement, {
   classTo: 'img-upload-item',
   errorTextParent: 'img-upload-item',
   errorTextClass: 'img-upload-item__error-text',
 });
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Публикация...';
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = 'Публикация...';
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Опубликовать';
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = 'Опубликовать';
 };
 
 const onModalEscKeydown = (evt) => {
@@ -49,7 +49,7 @@ const onNotificationEscKeydown = (evt, notification) => {
     notification.remove();
     document.removeEventListener('keydown', onNotificationEscKeydown);
 
-    if (!imgUploadOverlay.classList.contains('hidden')) {
+    if (!imgUploadOverlayElement.classList.contains('hidden')) {
       document.addEventListener('keydown', onModalEscKeydown);
     }
   }
@@ -68,33 +68,35 @@ const onClickOutBounds = (evt, notification, targetClass) => {
   }
 };
 
-function showModal () {
+const showModal = () => {
   resetScale();
   resetEffects();
 
-  imgUploadOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
+  imgUploadOverlayElement.classList.remove('hidden');
+  bodyElement.classList.add('modal-open');
 
-  uploadCancel.addEventListener('click', () => hideModal());
+  cancelUploadElement.addEventListener('click', () => hideModal());
   document.addEventListener('keydown', onModalEscKeydown);
-}
+};
 
 function hideModal () {
-  imgUploadOverlay.classList.add('hidden');
-  body.classList.remove('modal-open');
+  imgUploadOverlayElement.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
 
-  uploadCancel.removeEventListener('click', () => hideModal());
+  cancelUploadElement.removeEventListener('click', () => hideModal());
   document.removeEventListener('keydown', onModalEscKeydown);
 
   comment.value = '';
-  uploadFile.value = '';
+  fileUploadElement.value = '';
+
+  formElement.reset();
 }
 
-uploadFile.addEventListener('change', () => showModal());
+fileUploadElement.addEventListener('change', () => showModal());
 
 const getSuccessNotification = () => {
   const successModal = successTemplate.cloneNode(true);
-  body.append(successModal);
+  bodyElement.append(successModal);
 
   const successButtonClose = successModal.querySelector('.success__button');
   document.removeEventListener('keydown', onModalEscKeydown);
@@ -106,18 +108,18 @@ const getSuccessNotification = () => {
 
 const getErrorNotification = () => {
   const errorModal = errorTemplate.cloneNode(true);
-  body.append(errorModal);
+  bodyElement.append(errorModal);
 
-  const errorButtonClose = errorModal.querySelector('.error__button');
+  const errorCloseButtonElement = errorModal.querySelector('.error__button');
   document.removeEventListener('keydown', onModalEscKeydown);
   document.addEventListener('keydown', (evt) => onNotificationEscKeydown(evt, errorModal));
 
-  errorButtonClose.addEventListener('click', () => removeNotification(errorModal), {once: true});
+  errorCloseButtonElement.addEventListener('click', () => removeNotification(errorModal), {once: true});
   errorModal.addEventListener( 'click', (evt) => onClickOutBounds(evt, errorModal, 'error__inner'));
 };
 
 const setUserFormSubmit = (onSuccess) => {
-  form.addEventListener('submit', (evt) => {
+  formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const isValid = pristine.validate();

@@ -54,11 +54,12 @@ const form = document.querySelector('.img-upload__form');
 const image = form.querySelector('.img-upload__preview img');
 const sliderElement = form.querySelector('.effect-level__slider');
 const levelEffect = form.querySelector('.effect-level__value');
+const sliderUpload = form.querySelector('.img-upload__effect-level');
 
 const isDefault = () => currentEffect === DEFAULT_EFFECT;
 
 const updateSlider = () => {
-  sliderElement.classList.remove('hidden');
+  sliderUpload.classList.remove('hidden');
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: currentEffect.min,
@@ -69,7 +70,7 @@ const updateSlider = () => {
   });
 
   if (isDefault()) {
-    sliderElement.classList.add('hidden');
+    sliderUpload.classList.add('hidden');
   }
 };
 
