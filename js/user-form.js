@@ -11,11 +11,11 @@ const cancelUploadElement = imgUploadOverlayElement.querySelector('#upload-cance
 const comment = imgUploadOverlayElement.querySelector('.text__description');
 const submitButtonElement = formElement.querySelector('.img-upload__submit');
 
-const successTemplate = document.querySelector('#success')
+const successTemplateElement = document.querySelector('#success')
   .content
   .querySelector('.success');
 
-const errorTemplate = document.querySelector('#error')
+const errorTemplateElement = document.querySelector('#error')
   .content
   .querySelector('.error');
 
@@ -95,7 +95,7 @@ function hideModal () {
 fileUploadElement.addEventListener('change', () => showModal());
 
 const getSuccessNotification = () => {
-  const successModal = successTemplate.cloneNode(true);
+  const successModal = successTemplateElement.cloneNode(true);
   bodyElement.append(successModal);
 
   const successButtonClose = successModal.querySelector('.success__button');
@@ -107,7 +107,7 @@ const getSuccessNotification = () => {
 };
 
 const getErrorNotification = () => {
-  const errorModal = errorTemplate.cloneNode(true);
+  const errorModal = errorTemplateElement.cloneNode(true);
   bodyElement.append(errorModal);
 
   const errorCloseButtonElement = errorModal.querySelector('.error__button');
